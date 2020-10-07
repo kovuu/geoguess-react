@@ -2,6 +2,7 @@ import React, {useEffect, useState, useReducer} from 'react';
 import GameField from "./GameField/GameField";
 import data from "../consts/cities.json";
 import InfoBlock from "./InfoBlock";
+import './App.css';
 
 const initialState = {coords: null, isPicked: false};
 
@@ -11,6 +12,8 @@ function reducer(state, action) {
             return {coords: action.coordinates, isPicked: false}
         case 'PICK_CITY':
             return {...state, isPicked: true}
+        default:
+            throw Error;
     }
 }
 
@@ -34,6 +37,7 @@ function App() {
     useEffect(() => {
         const city = capitalCities[0];
         setNextCity(city.capitalCity);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -61,15 +65,16 @@ function App() {
         if (capitalCities.length === 0) {
             setVictory(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [estimated]);
 
     useEffect(() => {
         if (currentCity.coords.lat) {
             const dist = haversine_distance(currentCity.coords, estimated).toFixed(3);
             setDistance(dist);
-            setLifes(lifes - dist);
-
+            setLifes(lifes => lifes - dist);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentCity]);
 
     function haversine_distance(mk1, mk2) {
@@ -97,12 +102,13 @@ function App() {
     }
 
     function estimating() {
+        if (pinCoordinates.coords === null) return;
         setEstimated(pinCoordinates.coords);
         dispatch({type: 'PICK_CITY'});
     }
 
     return (
-    <div className="App">
+    <div className="container">
       <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory} dispCoordinates={dispatch} pickedCoords={pinCoordinates}/>
       <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory} estimating={estimating}/>
     </div>

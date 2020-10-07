@@ -35,12 +35,11 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
     }
 
     return (
-        <div>
 
-            {currentCity && <Map
+            currentCity && <Map
             containerStyle={{
                 position: 'absolute',
-                width: '100%',
+                width: '80%',
                 height: '60%'
             }}
             mapTypeControl={false}
@@ -65,8 +64,7 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
             {(pickedCoords && pickedCoords.isPicked && estimated.lat && currentCity.coords.lat) ?  <Polyline
                 path={[currentCity.coords, estimated]}
             /> : null}
-        </Map>}
-        </div>
+        </Map>
     )
 }
 
