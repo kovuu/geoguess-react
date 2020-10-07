@@ -90,6 +90,7 @@ function App() {
 
     function resetGame() {
         dispatch({type: 'SET_COORDS', initialState})
+        console.log(pinCoordinates)
         setCapitalCities(previousState => data.capitalCities.slice(0).sort(() => {
             return Math.random() - 0.5;
         }));
@@ -103,7 +104,7 @@ function App() {
     }
 
     function estimating() {
-        if (pinCoordinates.coords === null) return;
+        if (!pinCoordinates.coords) return;
         setEstimated(pinCoordinates.coords);
         dispatch({type: 'PICK_CITY'});
     }
