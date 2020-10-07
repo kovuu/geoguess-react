@@ -2,9 +2,6 @@ import React from "react";
 import {GoogleApiWrapper, Map, Marker, Polyline} from "google-maps-react";
 import  './GameField.css';
 
-
-
-
 const mapStyle = [{
     "featureType": "all",
     "elementType": "labels",
@@ -19,8 +16,7 @@ const mapStyle = [{
         }],
     }, {}]
 
-const GameField = ({estimated, currentCity, setEstimated, google, gameOver, victory, dispCoordinates, pickedCoords}) => {
-
+const GameField = ({estimated, currentCity, google, gameOver, victory, dispCoordinates, pickedCoords}) => {
     function onClick(t, map, coords) {
         if (victory || gameOver) return;
         const latLng = coords.latLng;
@@ -38,12 +34,9 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
 
             currentCity && <Map
             containerStyle={{
-                position: 'absolute',
-                left: '10%',
-                right: '10%',
-                top: '30%',
-                width: '80%',
-                height: '60%'
+                position: 'relative',
+                width: '100%',
+                height: '350px'
             }}
             mapTypeControl={false}
             fullscreenControl={false}

@@ -33,8 +33,6 @@ function App() {
     const [victory, setVictory] = useState(false);
     const [pinCoordinates, dispatch] = useReducer(reducer, initialState);
 
-
-
     useEffect(() => {
         const city = capitalCities[0];
         setNextCity(city.capitalCity);
@@ -90,7 +88,6 @@ function App() {
 
     function resetGame() {
         dispatch({type: 'SET_COORDS', initialState})
-        console.log(pinCoordinates)
         setCapitalCities(previousState => data.capitalCities.slice(0).sort(() => {
             return Math.random() - 0.5;
         }));
@@ -111,11 +108,9 @@ function App() {
 
     return (
     <div className="container">
-      <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory} dispCoordinates={dispatch} pickedCoords={pinCoordinates}/>
-      <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory} estimating={estimating}/>
-      <ButtonsBlock resetGame={resetGame} estimating={estimating}/>
-
-
+        <InfoBlock citiesCount={capitalCities.length} nextCity={nextCity} lifes={lifes} gameOver={gameOver} victory={victory} distance={distance}/>
+        <GameField estimated={estimated} currentCity={currentCity} gameOver={gameOver} victory={victory} dispCoordinates={dispatch} pickedCoords={pinCoordinates}/>
+        <ButtonsBlock  resetGame={resetGame} estimating={estimating}/>
     </div>
   );
 }

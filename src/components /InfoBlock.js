@@ -1,12 +1,26 @@
 import React from "react";
 
-export default ({nextCity, distance, lifes, counter, resetGame, gameOver, victory, estimating}) => {
+export default ({nextCity, lifes, gameOver, victory, citiesCount, distance}) => {
     return (
-        <div style={{position: 'absolute' , margin: '0 auto'}}>
-            {victory && <p>VICTORY!!!</p>}
-            {(!gameOver || !victory) && <p>Next City: {nextCity}</p>}
-            {distance && <p>Your guess was {distance}km from the correct location</p>}
-            {lifes > 0 ? <p>You have {lifes} km</p> : <p>You lost. Your best score is {counter} cities</p> }
+        <div className="info-block">
+            <div className="info-block-msg">
+                <span>{citiesCount} cities placed</span>
+            </div>
+            <div className="info-block-msg">
+                <span>{lifes >0 ? lifes.toFixed(0) : 0} kilometers left</span>
+            </div>
+            {(!victory && !gameOver) && <div className="opacity-block-msg">
+                <span>Select the location of {nextCity}</span>
+            </div>}
+            {distance && <div className="opacity-block-msg">
+                <span>Your guess was {distance}km from the correct location</span>
+            </div>}
+            {victory && <div className="opacity-block-msg">
+                <span>Victory!!!</span>
+            </div>}
+            {gameOver && <div className="opacity-block-msg">
+                <span>You lost</span>
+            </div>}
         </div>
     )
 }

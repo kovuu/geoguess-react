@@ -1,8 +1,8 @@
 import React from "react";
 
 export default ({resetGame, estimating}) => (
-   <div>
-    <button style={{position: "absolute", top: '92%', right: '22%'}} onClick={resetGame}>Reset Game</button>
-    <button style={{position: "absolute", top: '92%', right: '10%'}} onClick={estimating}>Place</button>
+   <div className="buttonsBlock">
+       <button  onClick={estimating}>Place</button>
+       <button  onClick={resetGame}>Reset Game</button>
    </div>
-       )
+)
