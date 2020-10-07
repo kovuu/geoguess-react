@@ -3,6 +3,7 @@ import GameField from "./GameField/GameField";
 import data from "../consts/cities.json";
 import InfoBlock from "./InfoBlock";
 import './App.css';
+import ButtonsBlock from "./ButtonsBlock";
 
 const initialState = {coords: null, isPicked: false};
 
@@ -88,7 +89,7 @@ function App() {
     }
 
     function resetGame() {
-        dispatch('SET_COORDS', initialState)
+        dispatch({type: 'SET_COORDS', initialState})
         setCapitalCities(previousState => data.capitalCities.slice(0).sort(() => {
             return Math.random() - 0.5;
         }));
@@ -111,6 +112,9 @@ function App() {
     <div className="container">
       <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory} dispCoordinates={dispatch} pickedCoords={pinCoordinates}/>
       <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory} estimating={estimating}/>
+      <ButtonsBlock resetGame={resetGame} estimating={estimating}/>
+
+
     </div>
   );
 }

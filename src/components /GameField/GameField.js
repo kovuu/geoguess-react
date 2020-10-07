@@ -39,6 +39,9 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
             currentCity && <Map
             containerStyle={{
                 position: 'absolute',
+                left: '10%',
+                right: '10%',
+                top: '30%',
                 width: '80%',
                 height: '60%'
             }}
