@@ -1,7 +1,6 @@
 import React from "react";
 
 export default ({nextCity, distance, lifes, counter, resetGame, gameOver, victory}) => {
-
     return (
         <div style={{position: 'absolute' ,top: '60%', margin: '0 auto'}}>
             {victory && <p>VICTORY!!!</p>}

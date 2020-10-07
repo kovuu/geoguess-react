@@ -16,20 +16,16 @@ function App() {
     const [estimated, setEstimated] = useState({});
     const [victory, setVictory] = useState(false);
 
-
-
     useEffect(() => {
         const city = capitalCities[0];
         setNextCity(city.capitalCity);
     }, []);
-
 
     useEffect(() => {
         if (lifes <= 0) {
             setGameOver(true);
         }
     },[lifes]);
-
 
     useEffect(() => {
         setNextCity(capitalCities[0].capitalCity)
