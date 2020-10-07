@@ -19,13 +19,13 @@ const mapStyle = [{
         }],
     }, {}]
 
-const GameField = ({estimated, currentCity, setEstimated, google, gameOver, victory}) => {
+const GameField = ({estimated, currentCity, setEstimated, google, gameOver, victory, dispCoordinates, pickedCoords}) => {
 
     function onClick(t, map, coords) {
         if (victory || gameOver) return;
         const latLng = coords.latLng;
         const coordinates = {lat: latLng.lat(), lng: latLng.lng()};
-        setEstimated(coordinates);
+        dispCoordinates({type: 'SET_COORDS', coordinates});
     }
 
     function _mapLoaded(mapProps, map) {
@@ -52,11 +52,11 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
             onClick={(!gameOver || !victory) ? onClick : null}
             onReady={(mapProps, map) => _mapLoaded(mapProps, map)}
         >
-            {estimated.lat &&<Marker
+            {estimated.lat && <Marker
                 position={currentCity.coords}
             />}
-            {estimated && <Marker
-                position={estimated}
+            {pickedCoords.coords && <Marker
+                position={pickedCoords.coords}
             />}
 
             {(estimated.lat && currentCity.coords.lat) ?  <Polyline

@@ -1,7 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useReducer} from 'react';
 import GameField from "./GameField/GameField";
 import data from "../consts/cities.json";
 import InfoBlock from "./InfoBlock";
+
+const initialState = {coords: null};
+
+function reducer(state, action) {
+    switch(action.type) {
+        case 'SET_COORDS':
+            return {coords: action.coordinates, isPicked: false}
+    }
+}
+
 
 function App() {
     const [capitalCities, setCapitalCities] = useState(data.capitalCities.slice(0).sort(() => {
@@ -15,6 +25,8 @@ function App() {
     const [currentCity, setCurrentCity] = useState({city: null, coords: {}});
     const [estimated, setEstimated] = useState({});
     const [victory, setVictory] = useState(false);
+    const [pinCoordinates, dispatch] = useReducer(reducer, initialState);
+
 
     useEffect(() => {
         const city = capitalCities[0];
@@ -80,10 +92,16 @@ function App() {
         setEstimated({});
     }
 
+    function estimating() {
+        console.log(123);
+        console.log(pinCoordinates.coords)
+        setEstimated(pinCoordinates.coords);
+    }
+
     return (
     <div className="App">
-      <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory}/>
-      <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory}/>
+      <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory} dispCoordinates={dispatch} pickedCoords={pinCoordinates}/>
+      <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory} estimating={estimating}/>
     </div>
   );
 }

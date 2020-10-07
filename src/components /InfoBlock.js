@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({nextCity, distance, lifes, counter, resetGame, gameOver, victory}) => {
+export default ({nextCity, distance, lifes, counter, resetGame, gameOver, victory, estimating}) => {
     return (
         <div style={{position: 'absolute' ,top: '60%', margin: '0 auto'}}>
             {victory && <p>VICTORY!!!</p>}
@@ -8,6 +8,7 @@ export default ({nextCity, distance, lifes, counter, resetGame, gameOver, victor
             {distance && <p>Your guess was {distance}km from the correct location</p>}
             {lifes > 0 ? <p>You have {lifes} km</p> : <p>You lost. Your best score is {counter} cities</p> }
             <button onClick={resetGame}>Reset Game</button>
+            <button onClick={estimating}>Pick</button>
         </div>
     )
 }
