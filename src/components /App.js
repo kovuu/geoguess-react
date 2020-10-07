@@ -14,11 +14,11 @@ function App() {
     const [gameOver, setGameOver] = useState(false);
     const [currentCity, setCurrentCity] = useState({city: null, coords: {}});
     const [estimated, setEstimated] = useState({});
+    const [victory, setVictory] = useState(false);
 
 
 
     useEffect(() => {
-        console.log(capitalCities)
         const city = capitalCities[0];
         setNextCity(city.capitalCity);
     }, []);
@@ -47,12 +47,13 @@ function App() {
             setCounter(counter+1);
 
         }
-
+        if (capitalCities.length === 0) {
+            setVictory(true);
+        }
     }, [estimated]);
 
     useEffect(() => {
         if (currentCity.coords.lat) {
-            console.log(currentCity);
             const dist = haversine_distance(currentCity.coords, estimated).toFixed(3);
             setDistance(dist);
             setLifes(lifes - dist);
@@ -71,12 +72,11 @@ function App() {
     }
 
     function resetGame() {
-        setCapitalCities(data.capitalCities.slice(0).sort(() => {
+        setCapitalCities(previousState => data.capitalCities.slice(0).sort(() => {
             return Math.random() - 0.5;
         }));
-        const city = capitalCities[0];
         setGameOver(false);
-        setNextCity(city.capitalCity);
+        setVictory(false);
         setCounter(-1);
         setLifes(1500);
         setDistance(null);
@@ -86,8 +86,8 @@ function App() {
 
     return (
     <div className="App">
-      <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver}/>
-      <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver}/>
+      <GameField estimated={estimated} currentCity={currentCity} setEstimated={setEstimated} gameOver={gameOver} victory={victory}/>
+      <InfoBlock nextCity={nextCity} distance={distance} lifes={lifes} counter={counter} resetGame={resetGame}  gameOver={gameOver} victory={victory}/>
     </div>
   );
 }

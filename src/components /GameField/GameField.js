@@ -19,10 +19,11 @@ const mapStyle = [{
         }],
     }, {}]
 
-const GameField = ({estimated, currentCity, setEstimated, google, gameOver}) => {
+const GameField = ({estimated, currentCity, setEstimated, google, gameOver, victory}) => {
 
 
     function onClick(t, map, coords) {
+        if (victory || gameOver) return;
         const latLng = coords.latLng;
         const coordinates = {lat: latLng.lat(), lng: latLng.lng()};
         setEstimated(coordinates);
@@ -54,7 +55,7 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver}) => 
                 lat: 48.727892167837695,
                 lng: 15.126317944746383
             }}
-            onClick={!gameOver ? onClick : null}
+            onClick={(!gameOver || !victory) ? onClick : null}
             onReady={(mapProps, map) => _mapLoaded(mapProps, map)}
         >
             {estimated.lat &&<Marker
