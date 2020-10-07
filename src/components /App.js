@@ -3,12 +3,14 @@ import GameField from "./GameField/GameField";
 import data from "../consts/cities.json";
 import InfoBlock from "./InfoBlock";
 
-const initialState = {coords: null};
+const initialState = {coords: null, isPicked: false};
 
 function reducer(state, action) {
     switch(action.type) {
         case 'SET_COORDS':
             return {coords: action.coordinates, isPicked: false}
+        case 'PICK_CITY':
+            return {...state, isPicked: true}
     }
 }
 
@@ -26,6 +28,7 @@ function App() {
     const [estimated, setEstimated] = useState({});
     const [victory, setVictory] = useState(false);
     const [pinCoordinates, dispatch] = useReducer(reducer, initialState);
+
 
 
     useEffect(() => {
@@ -80,6 +83,7 @@ function App() {
     }
 
     function resetGame() {
+        dispatch('SET_COORDS', initialState)
         setCapitalCities(previousState => data.capitalCities.slice(0).sort(() => {
             return Math.random() - 0.5;
         }));
@@ -93,9 +97,8 @@ function App() {
     }
 
     function estimating() {
-        console.log(123);
-        console.log(pinCoordinates.coords)
         setEstimated(pinCoordinates.coords);
+        dispatch({type: 'PICK_CITY'});
     }
 
     return (

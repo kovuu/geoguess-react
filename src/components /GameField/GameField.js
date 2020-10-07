@@ -43,6 +43,9 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
                 width: '100%',
                 height: '60%'
             }}
+            mapTypeControl={false}
+            fullscreenControl={false}
+            streetViewControl={false}
             google={google}
             zoom={4}
             initialCenter={{
@@ -52,14 +55,14 @@ const GameField = ({estimated, currentCity, setEstimated, google, gameOver, vict
             onClick={(!gameOver || !victory) ? onClick : null}
             onReady={(mapProps, map) => _mapLoaded(mapProps, map)}
         >
-            {estimated.lat && <Marker
+            {(pickedCoords && pickedCoords.isPicked && estimated.lat) && <Marker
                 position={currentCity.coords}
             />}
-            {pickedCoords.coords && <Marker
+            {(pickedCoords && pickedCoords.coords) && <Marker
                 position={pickedCoords.coords}
             />}
 
-            {(estimated.lat && currentCity.coords.lat) ?  <Polyline
+            {(pickedCoords && pickedCoords.isPicked && estimated.lat && currentCity.coords.lat) ?  <Polyline
                 path={[currentCity.coords, estimated]}
             /> : null}
         </Map>}
