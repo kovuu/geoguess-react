@@ -36,7 +36,7 @@ const GameField = ({estimated, currentCity, google, gameOver, victory, dispCoord
             containerStyle={{
                 position: 'relative',
                 width: '100%',
-                height: '350px'
+                height: '60vh',
             }}
             mapTypeControl={false}
             fullscreenControl={false}
